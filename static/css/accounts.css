@@ -1,0 +1,16 @@
+body {
+  background-image: url(../img/doodles.png);
+}
+
+.card {
+  top: 30px;
+}
+
+.logo a {
+  color: rgba(0,0,0,.9);
+}
+
+.logo a:hover,
+.logo a:active {
+  text-decoration: none;
+}

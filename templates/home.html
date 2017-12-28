@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+
+{% block breadcrumb %}
+  <li class="breadcrumb-item active">Reddit</li>
+{% endblock %}
+
+{% block content %}
+<a href="{% url 'subreddits' %}">Subreddits</a>
+{% endblock %}

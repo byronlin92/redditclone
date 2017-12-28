@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block title %}
+  {{ subreddit.name }}
+{% endblock %}
+
+{% block breadcrumb %}
+  <li class="breadcrumb-item"><a href="{% url 'home' %}">Reddit</a></li>
+  <li class="breadcrumb-item"><a href="{% url 'subreddits' %}">Subreddits</a></li>
+  <li class="breadcrumb-item active">{{ subreddit.name }}</li>
+{% endblock %}
+
+
+
+{% block content %}
+
+<div class="mb-4">
+  <a href="{% url 'new_post' subreddit.name %}" class="btn btn-primary">New post</a>
+</div>
+
+  <table class="table">
+    <thead class="thead-inverse">
+      <tr>
+        <th>Post</th>
+        <th>Starter</th>
+        <th>Replies</th>
+        <th>Views</th>
+        <th>Last Update</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for post in subreddit.posts.all %}
+        <tr>
+          <td>{{ post.subject }}</td>
+          <td>{{ post.starter.username }}</td>
+          <td>0</td>
+          <td>0</td>
+          <td>{{ post.last_updated }}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}
