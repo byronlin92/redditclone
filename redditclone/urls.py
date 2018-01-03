@@ -21,10 +21,26 @@ from django.contrib.auth import views as auth_views
 
 urlpatterns = [
     url(r'^$', views.home, name='home'),
-    url(r'^subreddits/$', views.subreddits, name='subreddits'),
-    url(r'^r/(?P<name>\w+)/$', views.subreddit_posts, name='subreddit_posts'),
-    url(r'^r/(?P<subreddit_name>\w+)/new/$', views.new_post, name='new_post'),
+    url(r'^subreddits/$', views.SubredditListView.as_view(), name='subreddits'),
 
+    # url(r'^subreddits/$', views.subreddits, name='subreddits'),
+
+    # subreddits  #create/update/delete will be done by admin
+    url(r'^r/(?P<subreddit_name>\w+)/$', views.subreddit_posts, name='subreddit_posts'), #list
+
+    # posts
+    url(r'^r/(?P<subreddit_name>\w+)/new/$', views.new_post, name='new_post'), #create
+    # url(r'^r/(?P<subreddit_name>\w+)/posts/(?P<post_pk>\d+)/update/$', views.PostUpdateView.as_view(), name='update_post'),#update
+    # url(r'^r/(?P<subreddit_name>\w+)/posts/(?P<post_pk>\d+)/delete/$', views.PostDeleteView.as_view(), name='delete_post'),#delete
+
+
+    #comments
+    # url(r'^r/(?P<subreddit_name>\w+)/posts/(?P<post_pk>\d+)/$', views.CommentListView.as_view(), name='list_comments'),  # list view
+    # url(r'^r/(?P<subreddit_name>\w+)/posts/(?P<post_pk>\d+)/new/$', views.CommentCreateView.as_view(), name='new_comment'), #create
+    # url(r'^r/(?P<subreddit_name>\w+)/posts/(?P<post_pk>\d+)/comments/(?P<comment_pk>\d+)/update/$', views.CommentUpdateView.as_view(), name='update_comment'),  #update
+    # url(r'^r/(?P<subreddit_name>\w+)/posts/(?P<post_pk>\d+)/comments/(?P<comment_pk>\d+)/delete/$', views.CommentDeleteView.as_view(), name='delete_comment'),  # update
+
+    #registration
     url(r'^signup/$', account_views.signup, name='signup'),
     url(r'^logout/$', auth_views.LogoutView.as_view(), name='logout'),
     url(r'^login/$', auth_views.LoginView.as_view(template_name='login.html'),name='login'),
@@ -49,7 +65,6 @@ urlpatterns = [
         name='password_change'),
     url(r'^settings/password/done/$', auth_views.PasswordChangeDoneView.as_view(template_name='password_change_done.html'),
         name='password_change_done'),
-
     url(r'^settings/account/$', account_views.UserUpdateView.as_view(), name='my_account'),
 
 

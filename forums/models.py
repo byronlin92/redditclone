@@ -17,7 +17,7 @@ class Post(models.Model):
     starter = models.ForeignKey(User, related_name='posts', on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.name
+        return self.subject
 
 class Comment(models.Model):
     message = models.TextField(max_length=4000)
@@ -29,4 +29,4 @@ class Comment(models.Model):
     #related_name='+' instructs django that we don't need reverse relationship
 
     def __str__(self):
-        return self.name
+        return self.message
