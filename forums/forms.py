@@ -1,5 +1,5 @@
 from django import forms
-from .models import Post
+from .models import Post, Comment
 
 class NewPostForm(forms.ModelForm):
     message = forms.CharField(
@@ -11,3 +11,9 @@ class NewPostForm(forms.ModelForm):
     class Meta:
         model = Post
         fields = ['subject', 'message']
+
+
+class NewCommentForm(forms.ModelForm):
+    class Meta:
+        model = Comment
+        fields = ['message']

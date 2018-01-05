@@ -21,52 +21,34 @@ from django.contrib.auth import views as auth_views
 
 urlpatterns = [
     url(r'^$', views.home, name='home'),
-    url(r'^subreddits/$', views.SubredditListView.as_view(), name='subreddits'),
 
-    # url(r'^subreddits/$', views.subreddits, name='subreddits'),
+    #SUBREDDITS
+    url(r'^subreddits/$', views.subreddits, name='subreddits'),
 
-    # subreddits  #create/update/delete will be done by admin
-    url(r'^r/(?P<subreddit_name>\w+)/$', views.subreddit_posts, name='subreddit_posts'), #list
 
-    # posts
+    #POSTS
+    url(r'^r/(?P<subreddit_name>\w+)/$', views.subreddit_posts, name='subreddit_posts'),  #list
     url(r'^r/(?P<subreddit_name>\w+)/new/$', views.new_post, name='new_post'), #create
     # url(r'^r/(?P<subreddit_name>\w+)/posts/(?P<post_pk>\d+)/update/$', views.PostUpdateView.as_view(), name='update_post'),#update
     # url(r'^r/(?P<subreddit_name>\w+)/posts/(?P<post_pk>\d+)/delete/$', views.PostDeleteView.as_view(), name='delete_post'),#delete
 
 
-    #comments
-    # url(r'^r/(?P<subreddit_name>\w+)/posts/(?P<post_pk>\d+)/$', views.CommentListView.as_view(), name='list_comments'),  # list view
-    # url(r'^r/(?P<subreddit_name>\w+)/posts/(?P<post_pk>\d+)/new/$', views.CommentCreateView.as_view(), name='new_comment'), #create
+    #COMMENTS
+    url(r'^r/(?P<subreddit_name>\w+)/posts/(?P<post_pk>\d+)/$', views.post_comments, name='post_comments'),  #list
+    url(r'^r/(?P<subreddit_name>\w+)/posts/(?P<post_pk>\d+)/new/$', views.new_comment, name='new_comment'), #create
     # url(r'^r/(?P<subreddit_name>\w+)/posts/(?P<post_pk>\d+)/comments/(?P<comment_pk>\d+)/update/$', views.CommentUpdateView.as_view(), name='update_comment'),  #update
     # url(r'^r/(?P<subreddit_name>\w+)/posts/(?P<post_pk>\d+)/comments/(?P<comment_pk>\d+)/delete/$', views.CommentDeleteView.as_view(), name='delete_comment'),  # update
 
-    #registration
+    #REGISTRATION
     url(r'^signup/$', account_views.signup, name='signup'),
+    url(r'^login/$', auth_views.LoginView.as_view(template_name='login.html'), name='login'),
     url(r'^logout/$', auth_views.LogoutView.as_view(), name='logout'),
-    url(r'^login/$', auth_views.LoginView.as_view(template_name='login.html'),name='login'),
-    url(r'^reset/$',
-        auth_views.PasswordResetView.as_view(
-            template_name='password_reset.html',
-            email_template_name='password_reset_email.html',
-            subject_template_name='password_reset_subject.txt'
-        ),
-        name='password_reset'),
-    url(r'^reset/done/$',
-        auth_views.PasswordResetDoneView.as_view(template_name='password_reset_done.html'),
-        name='password_reset_done'),
-    url(r'^reset/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$',
-        auth_views.PasswordResetConfirmView.as_view(template_name='password_reset_confirm.html'),
-        name='password_reset_confirm'),
-    url(r'^reset/complete/$',
-        auth_views.PasswordResetCompleteView.as_view(template_name='password_reset_complete.html'),
-        name='password_reset_complete'),
-        #Changing password
+    url(r'^settings/account/$', account_views.UserUpdateView.as_view(), name='my_account'),
+    url(r'^admin/', admin.site.urls),
+
+    #CHANGE PASSWORD
     url(r'^settings/password/$', auth_views.PasswordChangeView.as_view(template_name='password_change.html'),
         name='password_change'),
     url(r'^settings/password/done/$', auth_views.PasswordChangeDoneView.as_view(template_name='password_change_done.html'),
         name='password_change_done'),
-    url(r'^settings/account/$', account_views.UserUpdateView.as_view(), name='my_account'),
-
-
-    url(r'^admin/', admin.site.urls),
 ]

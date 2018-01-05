@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}Post a comment{% endblock %}
+
+
+{% block breadcrumb %}
+  <li class="breadcrumb-item"><a href="{% url 'home' %}">Reddit</a></li>
+  <li class="breadcrumb-item"><a href="{% url 'subreddits' %}">Subreddits</a></li>
+  <li class="breadcrumb-item"><a href="{% url 'subreddit_posts' post.subreddit.name %}">{{ post.subreddit.name }}</a></li>
+  <li class="breadcrumb-item"><a href="{% url 'post_comments' post.subreddit.name  post.pk %}">{{ post.subject }}</a></li>
+  <li class="breadcrumb-item active">New comment</li>
+{% endblock %}
+
+{% block content %}
+
+  <form method="post" class="mb-4" novalidate>
+    {% csrf_token %}
+    {% include 'includes/form.html' %}
+    <button type="submit" class="btn btn-success">Post a comment</button>
+  </form>
+
+
+{% endblock %}

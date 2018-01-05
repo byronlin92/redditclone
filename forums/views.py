@@ -1,29 +1,23 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
-from django.views.generic import ListView, UpdateView, CreateView, DeleteView
-
+from django.utils import timezone
 from .models import Subreddit, Post, Comment, User
-from .forms import NewPostForm
+from .forms import NewPostForm, NewCommentForm
 
 
 def home(request):
     return render(request, 'home.html')
 
 #SUBREDDITS
-class SubredditListView(ListView):
-    model = Subreddit
-    context_object_name = 'subreddits'
-    template_name='subreddits.html'
-    paginate_by = 20
+def subreddits(request):
+    subreddits = Subreddit.objects.all()
+    return render(request, 'subreddits.html', {'subreddits': subreddits})
 
 
 #POSTS
-class PostListView(ListView):
-    model = Post
 def subreddit_posts(request, subreddit_name):
     subreddit = Subreddit.objects.get(name=subreddit_name)
-    return render(request, 'posts.html', {'subreddit': subreddit})
-
+    return render(request, 'subreddit_posts.html', {'subreddit': subreddit})
 
 @login_required
 def new_post(request, subreddit_name):
@@ -40,23 +34,33 @@ def new_post(request, subreddit_name):
                 post=post,
                 created_by=request.user
             )
-            return redirect('subreddit_posts', name=subreddit.name)  # TODO: redirect to the created topic page
+            return redirect('post_comments', subreddit_name=subreddit.name, post_pk=post.pk)
     else:
         form = NewPostForm()
     return render(request, 'new_post.html', {'subreddit': subreddit, 'form': form})
 
 
-# class PostListView(ListView):
-#     model = Post
-#     context_object_name = 'posts'
-#     template_name = 'posts.html'
-#     paginate_by = 20
-#
-#     def get_context_data(self, **kwargs):
-#         kwargs['subreddit'] = self.subreddit
-#         return super().get_context_data(**kwargs)
-#
-#     # def get_queryset(self):
-#     #     self.subreddit = get_object_or_404(Subreddit, pk=self.kwargs.get('pk'))
-#     #     queryset = self.board.topics.order_by('-last_updated').annotate(replies=Count('posts') - 1)
-#     #     return queryset
+#COMMENTS
+def post_comments(request, subreddit_name, post_pk):
+    post = Post.objects.get(pk=post_pk, subreddit__name=subreddit_name)
+    return render(request, 'post_comments.html', { 'post': post})
+
+@login_required
+def new_comment(request, subreddit_name, post_pk):
+    post = get_object_or_404(Post, pk=post_pk, subreddit__name=subreddit_name)
+
+    if request.method == 'POST':
+        form = NewCommentForm(request.POST)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.post = post
+            comment.created_by = request.user
+            comment.updated_at = timezone.now()
+            comment.created_at = timezone.now()
+            comment.save()
+            return redirect('post_comments', subreddit_name=subreddit_name , post_pk=post_pk)  # TODO
+    else:
+        form = NewCommentForm()
+    return render(request, 'new_comment.html', { 'post': post, 'form': form})
+
+

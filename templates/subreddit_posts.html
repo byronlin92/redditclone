@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load humanize %}
 
 {% block title %}
   {{ subreddit.name }}
@@ -31,11 +32,11 @@
     <tbody>
       {% for post in subreddit.posts.all %}
         <tr>
-          <td>{{ post.subject }}</td>
+          <td><a href="{% url 'post_comments' subreddit.name post.pk %}">{{ post.subject }}</a></td>
           <td>{{ post.starter.username }}</td>
+          <td>{{ post.comments.count}}</td>
           <td>0</td>
-          <td>0</td>
-          <td>{{ post.last_updated }}</td>
+          <td>{{ post.last_updated|naturaltime }}</td>
         </tr>
       {% endfor %}
     </tbody>
