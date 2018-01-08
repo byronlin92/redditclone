@@ -28,16 +28,16 @@ urlpatterns = [
 
     #POSTS
     url(r'^r/(?P<subreddit_name>\w+)/$', views.subreddit_posts, name='subreddit_posts'),  #list
-    url(r'^r/(?P<subreddit_name>\w+)/new/$', views.new_post, name='new_post'), #create
+    url(r'^r/(?P<subreddit_name>\w+)/new/$', views.post_new, name='post_new'), #create
     # url(r'^r/(?P<subreddit_name>\w+)/posts/(?P<post_pk>\d+)/update/$', views.PostUpdateView.as_view(), name='update_post'),#update
     # url(r'^r/(?P<subreddit_name>\w+)/posts/(?P<post_pk>\d+)/delete/$', views.PostDeleteView.as_view(), name='delete_post'),#delete
 
 
     #COMMENTS
     url(r'^r/(?P<subreddit_name>\w+)/posts/(?P<post_pk>\d+)/$', views.post_comments, name='post_comments'),  #list
-    url(r'^r/(?P<subreddit_name>\w+)/posts/(?P<post_pk>\d+)/new/$', views.new_comment, name='new_comment'), #create
-    # url(r'^r/(?P<subreddit_name>\w+)/posts/(?P<post_pk>\d+)/comments/(?P<comment_pk>\d+)/update/$', views.CommentUpdateView.as_view(), name='update_comment'),  #update
-    # url(r'^r/(?P<subreddit_name>\w+)/posts/(?P<post_pk>\d+)/comments/(?P<comment_pk>\d+)/delete/$', views.CommentDeleteView.as_view(), name='delete_comment'),  # update
+    url(r'^r/(?P<subreddit_name>\w+)/posts/(?P<post_pk>\d+)/new/$', views.comment_new, name='comment_new'), #create
+    url(r'^r/(?P<subreddit_name>\w+)/posts/(?P<post_pk>\d+)/comments/(?P<comment_pk>\d+)/update/$', views.comment_update, name='comment_update'),  #update
+    # url(r'^r/(?P<subreddit_name>\w+)/posts/(?P<post_pk>\d+)/comments/(?P<comment_pk>\d+)/delete/$', views.comment_delete, name='comment_delete'),  # update
 
     #REGISTRATION
     url(r'^signup/$', account_views.signup, name='signup'),

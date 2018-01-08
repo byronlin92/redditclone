@@ -16,7 +16,7 @@
 {% block content %}
 
     <div class="mb-4">
-      <a href="{% url 'new_comment' post.subreddit.name post.pk %}" class="btn btn-primary">New comment</a>
+      <a href="{% url 'comment_new' post.subreddit.name post.pk %}" class="btn btn-primary">New comment</a>
     </div>
 
      {% for comment in post.comments.all %}
@@ -29,6 +29,10 @@
               <p>Comment: {{ comment }}</p>
               <small>By: {{comment.created_by.username}}</small>
               <p><small>Last updated: {{comment.updated_at|naturaltime}}</small></p>
+              <div class="mb-4">
+                  <a href="{% url 'comment_update' post.subreddit.name post.pk comment.pk %}" class="btn btn-primary">Edit comment</a>
+              </div>
+
             </div>
 
         </div>

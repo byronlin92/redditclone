@@ -20,7 +20,7 @@ def subreddit_posts(request, subreddit_name):
     return render(request, 'subreddit_posts.html', {'subreddit': subreddit})
 
 @login_required
-def new_post(request, subreddit_name):
+def post_new(request, subreddit_name):
     subreddit = get_object_or_404(Subreddit, name=subreddit_name)
     if request.method == 'POST':
         form = NewPostForm(request.POST)
@@ -37,7 +37,7 @@ def new_post(request, subreddit_name):
             return redirect('post_comments', subreddit_name=subreddit.name, post_pk=post.pk)
     else:
         form = NewPostForm()
-    return render(request, 'new_post.html', {'subreddit': subreddit, 'form': form})
+    return render(request, 'post_new.html', {'subreddit': subreddit, 'form': form})
 
 
 #COMMENTS
@@ -46,7 +46,7 @@ def post_comments(request, subreddit_name, post_pk):
     return render(request, 'post_comments.html', { 'post': post})
 
 @login_required
-def new_comment(request, subreddit_name, post_pk):
+def comment_new(request, subreddit_name, post_pk):
     post = get_object_or_404(Post, pk=post_pk, subreddit__name=subreddit_name)
 
     if request.method == 'POST':
@@ -58,9 +58,28 @@ def new_comment(request, subreddit_name, post_pk):
             comment.updated_at = timezone.now()
             comment.created_at = timezone.now()
             comment.save()
-            return redirect('post_comments', subreddit_name=subreddit_name , post_pk=post_pk)  # TODO
+            return redirect('post_comments', subreddit_name=subreddit_name , post_pk=post_pk)
     else:
         form = NewCommentForm()
-    return render(request, 'new_comment.html', { 'post': post, 'form': form})
+    return render(request, 'comment_new.html', { 'post': post, 'form': form})
 
+@login_required
+def comment_update(request, subreddit_name, post_pk, comment_pk):
+    comment = get_object_or_404(Comment, pk=comment_pk, post__subreddit__name=subreddit_name, post__pk=post_pk)
+
+    if request.method == 'POST' and 'Edit_comment' in request.POST:
+        form = NewCommentForm(request.POST, instance=comment)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.updated_at = timezone.now()
+            comment.save()
+            return redirect('post_comments', subreddit_name=subreddit_name , post_pk=post_pk)
+    #DELETE COMMENT
+    elif request.method == 'POST' and 'Delete_comment' in request.POST:
+        comment.delete()
+        return redirect('post_comments', subreddit_name=subreddit_name, post_pk=post_pk)
+    else:
+        form = NewCommentForm()
+
+    return render(request, 'comment_update.html', { 'comment': comment, 'form': form})
 
