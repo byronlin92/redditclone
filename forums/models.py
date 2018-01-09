@@ -18,6 +18,8 @@ class Subreddit(models.Model):
     def get_last_post(self):
         return Post.objects.filter(subreddit=self).order_by('-last_updated').first()
 
+    def get_post_by_updated_by(self):
+        return Post.objects.filter(subreddit=self).order_by('-last_updated')
 
 class Post(models.Model):
     subject = models.CharField(max_length=255)

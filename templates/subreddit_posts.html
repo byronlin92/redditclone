@@ -30,7 +30,7 @@
       </tr>
     </thead>
     <tbody>
-      {% for post in subreddit.posts.all %}
+      {% for post in subreddit.get_post_by_updated_by %}
         <tr>
           <td><a href="{% url 'post_comments' subreddit.name post.pk %}">{{ post.subject }}</a></td>
           <td>{{ post.starter.username }}</td>
