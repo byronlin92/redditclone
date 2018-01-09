@@ -9,6 +9,16 @@ class Subreddit(models.Model):
     def __str__(self):
         return self.name
 
+    def get_post_count(self):
+        return Post.objects.filter(subreddit=self).count()
+
+    def get_total_comments(self):
+        return Comment.objects.filter(post__subreddit=self).count()
+
+    def get_last_post(self):
+        return Post.objects.filter(subreddit=self).order_by('-last_updated').first()
+
+
 class Post(models.Model):
     subject = models.CharField(max_length=255)
     last_updated = models.DateTimeField(auto_now_add=True)
@@ -18,6 +28,7 @@ class Post(models.Model):
 
     def __str__(self):
         return self.subject
+
 
 class Comment(models.Model):
     message = models.TextField(max_length=4000)

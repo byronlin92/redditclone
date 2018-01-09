@@ -10,8 +10,8 @@
     <thead class="thead-inverse">
       <tr>
         <th>Subreddit</th>
-        <th>Post</th>
-        <th>Comment</th>
+        <th>Total Posts</th>
+        <th>Total Comment</th>
         <th>Last Post</th>
       </tr>
     </thead>
@@ -22,11 +22,31 @@
             <a href="{% url 'subreddit_posts' subreddit.name %}">{{ subreddit.name }}</a>
             <small class="text-muted d-block">{{ subreddit.description }}</small>
           </td>
-          <td class="align-middle">0</td>
-          <td class="align-middle">0</td>
-          <td></td>
+          <td class="align-middle">{{ subreddit.get_post_count }}</td>
+          <td class="align-middle">{{ subreddit.get_total_comments }}</td>
+          <td class="align-middle">
+            {% with post=subreddit.get_last_post %}
+              {% if post %}
+                <a href="{% url 'post_comments' post.subreddit.name post.pk %}">
+                  {{ post.subject }}
+                </a>
+                <small>
+                  <br>by {{post.starter.username}}</small></br>
+                </small>
+              {% else %}
+                <small class="text-muted">
+                  <em>No posts yet.</em>
+                </small>
+              {% endif %}
+            {% endwith %}
+          </td>
         </tr>
       {% endfor %}
     </tbody>
   </table>
 {% endblock %}
+
+
+
+
+

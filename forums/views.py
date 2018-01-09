@@ -10,7 +10,7 @@ def home(request):
 
 #SUBREDDITS
 def subreddits(request):
-    subreddits = Subreddit.objects.all()
+    subreddits = Subreddit.objects.all().order_by('name')
     return render(request, 'subreddits.html', {'subreddits': subreddits})
 
 
