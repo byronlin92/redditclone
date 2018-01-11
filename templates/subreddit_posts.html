@@ -1,5 +1,11 @@
 {% extends 'base.html' %}
+{% load static %}
 {% load humanize %}
+
+{% block stylesheet %}
+  <link rel="stylesheet" href="{% static 'css/sort.css' %}">
+{% endblock %}
+
 
 {% block title %}
   {{ subreddit.name }}
@@ -19,26 +25,40 @@
   <a href="{% url 'post_new' subreddit.name %}" class="btn btn-primary">New post</a>
 </div>
 
+<div id="post_table">
   <table class="table">
     <thead class="thead-inverse">
       <tr>
-        <th>Post</th>
-        <th>Starter</th>
-        <th>Replies</th>
-        <th>Views</th>
-        <th>Last Update</th>
+        <th><button class="sort" data-sort="post">Post</button> <input class="search" placeholder="Search" /></th>
+        <th><button class="sort" data-sort="starter">Starter</button></th>
+        <th><button class="sort" data-sort="replies">Replies</button></th>
+        <th><button class="sort" data-sort="views">Views</button></th>
+        <th><button class="sort" data-sort="last_updated">Last Update</button></th>
       </tr>
     </thead>
-    <tbody>
+    <tbody class="list">
       {% for post in subreddit.get_post_by_updated_by %}
         <tr>
-          <td><a href="{% url 'post_comments' subreddit.name post.pk %}">{{ post.subject }}</a></td>
-          <td>{{ post.starter.username }}</td>
-          <td>{{ post.comments.count}}</td>
-          <td>0</td>
-          <td>{{ post.last_updated|naturaltime }}</td>
+          <td><a class="post" href="{% url 'post_comments' subreddit.name post.pk %}">{{ post.subject }}</a></td>
+          <td class="starter">{{ post.starter.username }}</td>
+          <td class="replies">{{ post.comments.count}}</td>
+          <td class="views">0</td>
+          <td class="last_updated" data_last_updated="{{post.last_updated}}">{{ post.last_updated|naturaltime }}</td>
         </tr>
       {% endfor %}
     </tbody>
   </table>
+</div>
+
+
+<!--sort table using list.js-->
+<script src="//cdnjs.cloudflare.com/ajax/libs/list.js/1.5.0/list.min.js"></script>
+<script>
+  var options = {
+    valueNames: [ 'post', 'starter', 'replies', 'views', { attr: 'data_last_updated', name: 'last_updated'} ]
+  };
+
+  var a = new List('post_table', options);
+</script>
+
 {% endblock %}
