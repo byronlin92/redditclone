@@ -1,5 +1,4 @@
 {% extends 'base.html' %}
-
 {% block title %}My account{% endblock %}
 
 {% block breadcrumb %}
@@ -7,13 +6,14 @@
 {% endblock %}
 
 {% block content %}
-  <div class="row">
-    <div class="col-lg-6 col-md-8 col-sm-10">
-      <form method="post" novalidate>
-        {% csrf_token %}
-        {% include 'includes/form.html' %}
-        <button type="submit" class="btn btn-success">Save changes</button>
-      </form>
-    </div>
-  </div>
+    <form method="post" class="mb-4" novalidate>
+      {% csrf_token %}
+      {% include 'includes/form.html' %}
+
+      {{ update_user_form.as_p }}
+      {{ update_profile_form.as_p }}
+      <button type="submit" class="btn btn-success">Save changes</button>
+    </form>
+
+
 {% endblock %}

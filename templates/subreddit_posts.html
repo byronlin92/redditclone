@@ -29,6 +29,7 @@
   <table class="table">
     <thead class="thead-inverse">
       <tr>
+        <th><button class="sort" data-sort="vote">Vote</button></th>
         <th><button class="sort" data-sort="post">Post</button> <input class="search" placeholder="Search" /></th>
         <th><button class="sort" data-sort="starter">Starter</button></th>
         <th><button class="sort" data-sort="replies">Replies</button></th>
@@ -39,6 +40,7 @@
     <tbody class="list">
       {% for post in subreddit.get_post_by_updated_by %}
         <tr>
+          <td class="vote"> {{post.vote}}</td>
           <td><a class="post" href="{% url 'post_comments' subreddit.name post.pk %}">{{ post.subject }}</a></td>
           <td class="starter">{{ post.starter.username }}</td>
           <td class="replies">{{ post.comments.count}}</td>
@@ -55,7 +57,7 @@
 <script src="//cdnjs.cloudflare.com/ajax/libs/list.js/1.5.0/list.min.js"></script>
 <script>
   var options = {
-    valueNames: [ 'post', 'starter', 'replies', 'views', { attr: 'data_last_updated', name: 'last_updated'} ]
+    valueNames: [ 'vote', 'post', 'starter', 'replies', 'views', { attr: 'data_last_updated', name: 'last_updated'} ]
   };
 
   var a = new List('post_table', options);

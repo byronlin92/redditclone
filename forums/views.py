@@ -34,6 +34,7 @@ def post_new(request, subreddit_name):
                 post=post,
                 created_by=request.user
             )
+            post.vote = 1
             return redirect('post_comments', subreddit_name=subreddit.name, post_pk=post.pk)
     else:
         form = NewPostForm()
