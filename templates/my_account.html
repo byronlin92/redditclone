@@ -11,9 +11,10 @@
       {% include 'includes/form.html' %}
 
       {{ update_user_form.as_p }}
-      {{ update_profile_form.as_p }}
       <button type="submit" class="btn btn-success">Save changes</button>
     </form>
 
-
+    <div class="mb-4">
+      <a href="{% url 'password_change' %}" class="btn btn-primary">Change password</a>
+    </div>
 {% endblock %}

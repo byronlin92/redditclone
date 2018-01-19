@@ -13,7 +13,6 @@ def subreddits(request):
     subreddits = Subreddit.objects.all().order_by('name')
     return render(request, 'subreddits.html', {'subreddits': subreddits})
 
-
 #POSTS
 def subreddit_posts(request, subreddit_name):
     subreddit = Subreddit.objects.get(name=subreddit_name)
@@ -85,8 +84,3 @@ def comment_update(request, subreddit_name, post_pk, comment_pk):
     return render(request, 'comment_update.html', { 'comment': comment, 'form': form})
 
 
-#ACCOUNT
-@login_required
-def account_detail(request, account_username):
-    user = User.objects.get(username=account_username)
-    return render(request, 'account_detail.html', {'user': user})

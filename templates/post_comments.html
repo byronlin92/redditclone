@@ -15,9 +15,12 @@
 
 {% block content %}
 
+    {% if request.user.is_authenticated %}
     <div class="mb-4">
       <a href="{% url 'comment_new' post.subreddit.name post.pk %}" class="btn btn-primary">New comment</a>
     </div>
+    {% else %}
+    {% endif %}
 
      {% for comment in post.comments.all %}
       <div class="card mb-2">
@@ -29,9 +32,13 @@
               <p>Comment: {{ comment }}</p>
               <small>By: {{comment.created_by.username}}</small>
               <p><small>Last updated: {{comment.updated_at|naturaltime}}</small></p>
+
+              {% if request.user.is_authenticated and request.user == comment.created_by %}
               <div class="mb-4">
                   <a href="{% url 'comment_update' post.subreddit.name post.pk comment.pk %}" class="btn btn-primary">Edit comment</a>
               </div>
+              {% else %}
+              {% endif %}
 
             </div>
 

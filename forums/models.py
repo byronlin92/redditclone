@@ -46,6 +46,8 @@ class Post(models.Model):
     starter = models.ForeignKey(User, related_name='posts', on_delete=models.CASCADE)
     vote = models.IntegerField(default=0)
 
+    scheduled_by = models.ForeignKey(Profile, on_delete=models.CASCADE, null=True)
+
     def __str__(self):
         return self.subject
 

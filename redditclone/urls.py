@@ -43,7 +43,7 @@ urlpatterns = [
     url(r'^signup/$', account_views.signup, name='signup'),
     url(r'^login/$', auth_views.LoginView.as_view(template_name='login.html'), name='login'),
     url(r'^logout/$', auth_views.LogoutView.as_view(), name='logout'),
-    url(r'^settings/account/$', account_views.update_profile, name='my_account'),
+    url(r'^settings/account/$', account_views.update_account, name='my_account'),
     url(r'^admin/', admin.site.urls),
 
     #CHANGE PASSWORD
