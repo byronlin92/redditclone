@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block breadcrumb %}
+  <li class="breadcrumb-item"><a href="{% url 'home' %}">Services Apps</a></li>
+  <li class="breadcrumb-item active">{{profile.user.username}}'s Profile</li>
+{% endblock %}
+
+{% block content %}
+
+<h3 style="margin-bottom:60px;">Your Biography: {{profile.bio}}</h3>
+
+{% if user == request.user and request.user.is_authenticated %}
+<div class="mb-4">
+  <a href="{% url 'profile_update' user.profile.pk %}" class="btn btn-primary">Update Biography</a>
+</div>
+
+<h3 style="margin-bottom:60px;">Cleaning Services Offered: </h3>
+
+<table class="table">
+    <thead class="thead-inverse">
+      <tr>
+        <th><button class="sort" data-sort="price">Price</button></th>
+        <th><button class="sort" data-sort="name">Name</button></th>
+        <th><button class="sort" data-sort="location">Location</button></th>
+        <th><button class="sort" data-sort="starter">User</button></th>
+        <th><button class="sort" data-sort="created_at">Created at</button></th>
+      </tr>
+    </thead>
+    <tbody class="list">
+      {% for post in posts %}
+    <!-- Have a check to see which records in the database matches the current user -->
+        <tr>
+          <td class="price">{{ post.price }}</td>
+          <td class="name"><a href="{% url 'post_detail' post.pk %}">{{ post.name }}</a></td>
+          <td class="location">{{ post.location }}</td>
+          <td class="starter"><a href="{% url 'profile_detail' user.profile.pk %}">{{user.username}}</a></td>
+          <td class="created_at">{{ post.created_at }}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+</table>
+
+{% else %}
+{% endif %}
+
+{% endblock content %}

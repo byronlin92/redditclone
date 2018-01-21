@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+
+{% block breadcrumb %}
+  <li class="breadcrumb-item"><a href="{% url 'home' %}">Services Apps</a></li>
+  <li class="breadcrumb-item"><a href="{% url 'profile_detail' user.profile.pk %}">Profile details</a></li>
+  <li class="breadcrumb-item active">Update Profile</li>
+{% endblock %}
+
+
+{% block content %}
+
+{% if user == request.user %}
+<form method="post" novalidate>
+    {% csrf_token %}
+    <div id="map"></div>
+    {% include 'includes/form.html' %}
+    <button type="submit" class="btn btn-success">Update Profile</button>
+</form>
+
+{% else %}
+You do not have access to this page
+{% endif %}
+
+{% endblock content %}

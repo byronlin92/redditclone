@@ -16,11 +16,11 @@ class UpdateUserForm(forms.ModelForm):
         model = User
         fields = ['first_name', 'last_name', 'username','email']
 
-
-class UpdateProfileForm(forms.ModelForm):
-    class Meta:
-        model = Profile
-        fields = ['bio']
+#
+# class UpdateProfileForm(forms.ModelForm):
+#     class Meta:
+#         model = Profile
+#         fields = ['bio']
 
 
 

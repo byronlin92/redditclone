@@ -1,18 +1,3 @@
-"""redditclone URL Configuration
-
-The `urlpatterns` list routes URLs to views. For more information please see:
-    https://docs.djangoproject.com/en/1.11/topics/http/urls/
-Examples:
-Function views
-    1. Add an import:  from my_app import views
-    2. Add a URL to urlpatterns:  url(r'^$', views.home, name='home')
-Class-based views
-    1. Add an import:  from other_app.views import Home
-    2. Add a URL to urlpatterns:  url(r'^$', Home.as_view(), name='home')
-Including another URLconf
-    1. Import the include() function: from django.conf.urls import url, include
-    2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
-"""
 from django.conf.urls import url
 from django.contrib import admin
 from forums import views
@@ -43,7 +28,9 @@ urlpatterns = [
     url(r'^signup/$', account_views.signup, name='signup'),
     url(r'^login/$', auth_views.LoginView.as_view(template_name='login.html'), name='login'),
     url(r'^logout/$', auth_views.LogoutView.as_view(), name='logout'),
-    url(r'^settings/account/$', account_views.update_account, name='my_account'),
+
+    url(r'^account/(?P<account_username>\w+)/$', account_views.account_detail, name='account_detail'),
+    url(r'^account/(?P<account_username>\w+)/update$', account_views.account_update, name='account_update'),
     url(r'^admin/', admin.site.urls),
 
     #CHANGE PASSWORD
@@ -51,4 +38,9 @@ urlpatterns = [
         name='password_change'),
     url(r'^settings/password/done/$', auth_views.PasswordChangeDoneView.as_view(template_name='password_change_done.html'),
         name='password_change_done'),
+
+    # PROFILE
+    url(r'^profile/(?P<profile_pk>\d+)/$', auth_views.profile_detail, name='profile_detail'),
+    url(r'^profile/(?P<profile_pk>\d+)/update$', auth_views.profile_update, name='profile_update'),
+
 ]
