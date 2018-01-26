@@ -22,7 +22,7 @@ urlpatterns = [
     url(r'^r/(?P<subreddit_name>\w+)/posts/(?P<post_pk>\d+)/$', views.post_comments, name='post_comments'),  #list
     url(r'^r/(?P<subreddit_name>\w+)/posts/(?P<post_pk>\d+)/new/$', views.comment_new, name='comment_new'), #create
     url(r'^r/(?P<subreddit_name>\w+)/posts/(?P<post_pk>\d+)/comments/(?P<comment_pk>\d+)/update/$', views.comment_update, name='comment_update'),  #update
-    # url(r'^r/(?P<subreddit_name>\w+)/posts/(?P<post_pk>\d+)/comments/(?P<comment_pk>\d+)/delete/$', views.comment_delete, name='comment_delete'),  # update
+    url(r'^r/(?P<subreddit_name>\w+)/posts/(?P<post_pk>\d+)/comments/(?P<comment_pk>\d+)/reply/$', views.comment_reply, name='comment_reply'),  # reply
 
     #REGISTRATION
     url(r'^signup/$', account_views.signup, name='signup'),
@@ -40,7 +40,7 @@ urlpatterns = [
         name='password_change_done'),
 
     # PROFILE
-    url(r'^profile/(?P<profile_pk>\d+)/$', auth_views.profile_detail, name='profile_detail'),
-    url(r'^profile/(?P<profile_pk>\d+)/update$', auth_views.profile_update, name='profile_update'),
+    url(r'^profile/(?P<profile_pk>\d+)/$', account_views.profile_detail, name='profile_detail'),
+    url(r'^profile/(?P<profile_pk>\d+)/update$', account_views.profile_update, name='profile_update'),
 
 ]

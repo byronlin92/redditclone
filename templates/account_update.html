@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block title %}My account{% endblock %}
+
+{% block breadcrumb %}
+  <li class="breadcrumb-item"><a href="{% url 'home' %}">Reddit</a></li>
+  <li class="breadcrumb-item"><a href="{% url 'account_detail' user.username %}">Account Details</a></li>
+  <li class="breadcrumb-item active">Account Update</li>
+{% endblock %}
+
+{% block content %}
+    <form method="post" class="mb-4" novalidate>
+      {% csrf_token %}
+      {% include 'includes/form.html' %}
+
+      {{ update_user_form.as_p }}
+      <button type="submit" class="btn btn-success">Save changes</button>
+    </form>
+
+    <div class="mb-4">
+      <a href="{% url 'password_change' %}" class="btn btn-primary">Change password</a>
+    </div>
+{% endblock %}

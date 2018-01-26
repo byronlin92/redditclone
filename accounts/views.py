@@ -40,28 +40,26 @@ def account_update(request, account_username):
             messages.error(request, ('Please correct the error below.'))
     else:
         form = UpdateUserForm(instance=request.user)
-    return render(request, 'my_account.html', { 'form': form })
+    return render(request, 'account_update.html', { 'form': form })
 
 
 
 #PROFILES
 def profile_detail(request, profile_pk):
     profile = get_object_or_404(Profile, pk=profile_pk)
-    # posts = Post.objects.all()
     return render(request, 'profile_detail.html', {'profile':profile})
-    # return render(request, 'profile_detail.html', {'profile':profile}, {'posts': posts})
 
 
 @login_required
 def profile_update(request, profile_pk):
     profile = get_object_or_404(Profile, pk=profile_pk)
     if request.method == 'POST':
-        form = ProfileUpdateForm(request.POST, instance=profile)
+        form = UpdateProfileForm(request.POST, instance=profile)
         if form.is_valid():
-            profile = form.save()
+            form.save()
             return redirect('profile_detail', profile_pk=profile_pk)
     else:
-        form = ProfileUpdateForm()
+        form = UpdateProfileForm()
     return render(request, 'profile_update.html', {'profile':profile, 'form':form})
 
 
@@ -94,7 +92,7 @@ def profile_update(request, profile_pk):
 #     else:
 #         update_user_form = UpdateUserForm(instance=request.user)
 #         update_profile_form = UpdateProfileForm(instance=request.user.profile)
-#     return render(request, 'my_account.html', {
+#     return render(request, 'account_update.html', {
 #         'update_user_form': update_user_form,
 #         'update_profile_form': update_profile_form
 #     })

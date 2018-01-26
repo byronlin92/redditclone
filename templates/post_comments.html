@@ -37,13 +37,38 @@
               <div class="mb-4">
                   <a href="{% url 'comment_update' post.subreddit.name post.pk comment.pk %}" class="btn btn-primary">Edit comment</a>
               </div>
+              <div class="mb-4">
+                  <a href="{% url 'comment_reply' post.subreddit.name post.pk comment.pk %}" class="btn btn-primary">Reply comment</a>
+              </div>
               {% else %}
               {% endif %}
 
             </div>
-
         </div>
       </div>
+
+    {% while comment.ref_comment != null %}
+      <div class="card-body p-4">
+        <div class="col-10">
+          <p>Comment: {{ ref_comment }}</p>
+          <small>By: {{ref_comment.created_by.username}}</small>
+          <p><small>Last updated: {{ref_comment.updated_at|naturaltime}}</small></p>
+
+          {% if request.user.is_authenticated and request.user == comment.created_by %}
+          <div class="mb-4">
+              <a href="{% url 'comment_update' post.subreddit.name post.pk ref_comment.pk %}" class="btn btn-primary">Edit comment</a>
+          </div>
+          <div class="mb-4">
+              <a href="{% url 'comment_reply' post.subreddit.name post.pk ref_comment.pk %}" class="btn btn-primary">Reply comment</a>
+          </div>
+          {% else %}
+          {% endif %}
+
+        </div>
+    </div>
+
+    {% endwhile %}
+
   {% endfor %}
 
 {% endblock %}

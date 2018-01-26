@@ -83,4 +83,27 @@ def comment_update(request, subreddit_name, post_pk, comment_pk):
 
     return render(request, 'comment_update.html', { 'comment': comment, 'form': form})
 
+@login_required
+def comment_reply(request, subreddit_name, post_pk, comment_pk):
+    comment = get_object_or_404(Comment, pk=comment_pk, post__subreddit__name=subreddit_name, post__pk=post_pk)
+    if request.method == 'POST':
+        form = NewCommentForm(request.POST)
+        if form.is_valid():
+            new_comment = form.save(commit=False)
+            new_comment.ref_comment = comment
+            new_comment.post = comment.post
+            new_comment.created_by = request.user
+            new_comment.updated_at = timezone.now()
+            new_comment.created_at = timezone.now()
+            new_comment.save()
+            return redirect('post_comments', subreddit_name=subreddit_name , post_pk=post_pk)
+    else:
+        form = NewCommentForm()
+    return render(request, 'comment_reply.html', { 'comment': comment, 'form': form})
+
+
+
+
+
+
 

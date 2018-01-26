@@ -44,8 +44,8 @@ class Comment(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(null=True)
     created_by = models.ForeignKey(User, related_name='comments', on_delete=models.CASCADE)
-    updated_by = models.ForeignKey(User, null=True, related_name='+', on_delete=models.CASCADE)
-    #related_name='+' instructs django that we don't need reverse relationship
+    updated_by = models.ForeignKey(User, null=True, related_name='+', on_delete=models.CASCADE) #related_name='+' instructs django that we don't need reverse relationship
+    ref_comment = models.ForeignKey('self', null=True, blank=True)
 
     def __str__(self):
         return self.message
