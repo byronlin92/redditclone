@@ -31,6 +31,9 @@ class Post(models.Model):
     def __str__(self):
         return self.name
 
+    def get_parent_comments(self):
+        return Comment.objects.filter(post=self, parent__isnull=True)
+
 
 class Comment(models.Model):
     comment = models.TextField(max_length=4000)
@@ -42,4 +45,7 @@ class Comment(models.Model):
     parent = models.ForeignKey('self', null=True, blank=True, related_name='child', on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.message
+        return self.comment
+
+    def get_child_comments(self):
+        return Comment.objects.filter(parent=self)

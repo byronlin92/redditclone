@@ -26,7 +26,7 @@ def post_new(request, subreddit_name):
         if form.is_valid():
             post = form.save(commit=False)
             post.subreddit = subreddit
-            post.starter = request.user
+            post.created_by = request.user
             post.save()
             return redirect('post_comments', subreddit_name=subreddit.name, post_pk=post.pk)
     else:
@@ -84,11 +84,12 @@ def comment_reply(request, subreddit_name, post_pk, comment_pk):
         form = NewCommentForm(request.POST)
         if form.is_valid():
             new_comment = form.save(commit=False)
-            new_comment.ref_comment = comment
+            new_comment.parent = comment
             new_comment.post = comment.post
             new_comment.created_by = request.user
-            new_comment.updated_at = timezone.now()
+            new_comment.updated_by = request.user
             new_comment.created_at = timezone.now()
+            new_comment.updated_at = timezone.now()
             new_comment.save()
             return redirect('post_comments', subreddit_name=subreddit_name , post_pk=post_pk)
     else:
