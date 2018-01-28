@@ -28,12 +28,6 @@ def post_new(request, subreddit_name):
             post.subreddit = subreddit
             post.starter = request.user
             post.save()
-            comment = Comment.objects.create(
-                message=form.cleaned_data.get('message'),
-                post=post,
-                created_by=request.user
-            )
-            post.vote = 1
             return redirect('post_comments', subreddit_name=subreddit.name, post_pk=post.pk)
     else:
         form = NewPostForm()

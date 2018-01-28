@@ -10,11 +10,11 @@ class NewPostForm(forms.ModelForm):
 
     class Meta:
         model = Post
-        fields = ['subject', 'message']
+        fields = ['name', 'description']
 
 
 class NewCommentForm(forms.ModelForm):
     class Meta:
         model = Comment
-        fields = ['message']
+        fields = ['comment']
 
