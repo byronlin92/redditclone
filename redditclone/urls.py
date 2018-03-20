@@ -14,7 +14,7 @@ urlpatterns = [
     #POSTS
     url(r'^r/(?P<subreddit_name>\w+)/$', views.subreddit_posts, name='subreddit_posts'),  #list
     url(r'^r/(?P<subreddit_name>\w+)/new/$', views.post_new, name='post_new'), #create
-    # url(r'^r/(?P<subreddit_name>\w+)/posts/(?P<post_pk>\d+)/update/$', views.PostUpdateView.as_view(), name='update_post'),#update
+    # url(r'^r/(?P<subreddit_name>\w+)/posts/(?P<post_pk>\d+)/update/$', views.PostUpdateView.as_view(), name='update_post'),#updatez
     # url(r'^r/(?P<subreddit_name>\w+)/posts/(?P<post_pk>\d+)/delete/$', views.PostDeleteView.as_view(), name='delete_post'),#delete
 
 
