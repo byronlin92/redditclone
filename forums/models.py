@@ -24,6 +24,7 @@ class Subreddit(models.Model):
 class Post(models.Model):
     name = models.CharField(max_length=255)
     description = models.TextField(max_length=256)
+    url = models.URLField(blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     created_by = models.ForeignKey(User, related_name='posts', on_delete=models.CASCADE)
     subreddit = models.ForeignKey(Subreddit, related_name='posts', on_delete=models.CASCADE)

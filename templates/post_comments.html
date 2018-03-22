@@ -26,7 +26,12 @@
           <div class="card-header text-white bg-dark py-2 px-3"></div>
         <div class="card-body p-3">
             <div class="col-10">
-              <p>Post name: {{ post.name }}</p>
+                {% if not post.url %}
+                <p>Post name: {{ post.name }}</p>
+                {% else %}
+                <p>Post name: <a href={{post.url}}>{{post.name}} </a></p>
+                {% endif %}
+
               <p>Post description: {{ post.description }}</p>
               <small>By: {{post.created_by.username}}</small>
               <p><small>Created: {{post.created_at|naturaltime}}</small></p>
