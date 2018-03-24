@@ -22,7 +22,7 @@ def subreddit_posts(request, subreddit_name):
 def post_new(request, subreddit_name):
     subreddit = get_object_or_404(Subreddit, name=subreddit_name)
     if request.method == 'POST':
-        form = NewPostForm(request.POST)
+        form = NewPostForm(request.POST, request.FILES)
         if form.is_valid():
             post = form.save(commit=False)
             post.subreddit = subreddit

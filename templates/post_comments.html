@@ -32,6 +32,10 @@
                 <p>Post name: <a href={{post.url}}>{{post.name}} </a></p>
                 {% endif %}
 
+                {% if post.image %}
+                <img src="{{ post.image.url }}" alt="img" class="img-responsive img-rounded" style="max-width: 500px; max-height:500px">
+                {% endif %}
+
               <p>Post description: {{ post.description }}</p>
               <small>By: {{post.created_by.username}}</small>
               <p><small>Created: {{post.created_at|naturaltime}}</small></p>

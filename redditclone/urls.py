@@ -4,6 +4,9 @@ from forums import views
 from accounts import views as account_views
 from django.contrib.auth import views as auth_views
 
+from django.conf import settings
+from django.conf.urls.static import static
+
 urlpatterns = [
     url(r'^$', views.home, name='home'),
 
@@ -44,3 +47,6 @@ urlpatterns = [
     url(r'^profile/(?P<profile_pk>\d+)/update$', account_views.profile_update, name='profile_update'),
 
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
