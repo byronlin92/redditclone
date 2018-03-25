@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.db.models import Sum
 
 class Subreddit(models.Model):
     name = models.CharField(max_length=30, unique=True)
@@ -36,6 +37,9 @@ class Post(models.Model):
     def get_parent_comments(self):
         return Comment.objects.filter(post=self, parent__isnull=True)
 
+    def get_total_post_score(self):
+        return Post_score.objects.filter(post=self).aggregate(Sum('score'))['score__sum']
+
 
 class Comment(models.Model):
     comment = models.TextField(max_length=4000)
@@ -51,3 +55,11 @@ class Comment(models.Model):
 
     def get_child_comments(self):
         return Comment.objects.filter(parent=self)
+
+
+class Post_score(models.Model):
+    score = models.IntegerField(default=0)
+    post = models.ForeignKey(Post, related_name='post_score', on_delete=models.CASCADE)
+    upvoted_by = models.ForeignKey(User, related_name='post_score_upvoted_by', on_delete=models.CASCADE, null=True)
+    downvoted_by = models.ForeignKey(User, related_name='post_score_downvoted_by', on_delete=models.CASCADE, null=True)
+    voted_at = models.DateTimeField(auto_now_add=True)

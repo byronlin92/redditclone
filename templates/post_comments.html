@@ -14,7 +14,6 @@
 
 
 {% block content %}
-
     {% if request.user.is_authenticated %}
     <div class="mb-4">
       <a href="{% url 'comment_new' post.subreddit.name post.pk %}" class="btn btn-primary">New comment</a>
@@ -37,9 +36,20 @@
                 {% endif %}
 
               <p>Post description: {{ post.description }}</p>
+                <p>Post score: {{ post.get_total_post_score }}</p>
+
               <small>By: {{post.created_by.username}}</small>
               <p><small>Created: {{post.created_at|naturaltime}}</small></p>
 
+
+                <!--VOTE BUTTONS-->
+              <div class="mb-4">
+                    <a href="{% url 'upvote_post' post.subreddit.name post.pk %}" class="btn btn-primary">Upvote</a>
+                    <a href="{% url 'downvote_post' post.subreddit.name post.pk %}" class="btn btn-primary">Downvote</a>
+              </div>
+
+
+                <!-- COMMENT BUTTONS -->
               {% if request.user.is_authenticated and request.user == comment.created_by %}
               <div class="mb-4">
                   <a href="{% url 'comment_update' post.subreddit.name post.pk comment.pk %}" class="btn btn-primary">Edit comment</a>
@@ -53,7 +63,6 @@
             </div>
         </div>
       </div>
-
 
 
     {% for comment in post.get_parent_comments %}

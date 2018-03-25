@@ -11,7 +11,7 @@
       <tr>
         <th>Subreddit</th>
         <th>Total Posts</th>
-        <th>Total Comment</th>
+        <th>Total Comments</th>
         <th>Last Post</th>
       </tr>
     </thead>
@@ -27,11 +27,12 @@
           <td class="align-middle">
             {% with post=subreddit.get_last_post %}
               {% if post %}
+                {{ post.subject }}
                 <a href="{% url 'post_comments' post.subreddit.name post.pk %}">
-                  {{ post.subject }}
+                  {{ post.name }}
                 </a>
                 <small>
-                  <br>by {{post.starter.username}}</small></br>
+                  <br>by {{post.created_by.username}}</small></br>
                 </small>
               {% else %}
                 <small class="text-muted">

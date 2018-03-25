@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.utils import timezone
-from .models import Subreddit, Post, Comment, User
+from .models import Subreddit, Post, Comment, User, Post_score
 from .forms import NewPostForm, NewCommentForm
 
 
@@ -97,8 +97,26 @@ def comment_reply(request, subreddit_name, post_pk, comment_pk):
     return render(request, 'comment_reply.html', { 'comment': comment, 'form': form})
 
 
+@login_required
+def upvote_post(request, subreddit_name, post_pk):
+    request.POST
+    post = Post.objects.get(pk=post_pk, subreddit__name=subreddit_name)
+    post_score = Post_score(post=post)
+    post_score.score = post_score.score + 1
+    post_score.upvoted_by = request.user
+    post_score.save()
 
+    return render(request, 'post_comments.html', { 'post': post})
 
+@login_required
+def downvote_post(request, subreddit_name, post_pk):
+    post = Post.objects.get(pk=post_pk, subreddit__name=subreddit_name)
+    post_score = Post_score(post=post)
+    post_score.score = post_score.score - 1
+    post_score.downvoted_by = request.user
+    post_score.save()
+
+    return render(request, 'post_comments.html', { 'post': post})
 
 
 

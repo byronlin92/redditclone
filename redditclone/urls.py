@@ -21,6 +21,10 @@ urlpatterns = [
     # url(r'^r/(?P<subreddit_name>\w+)/posts/(?P<post_pk>\d+)/delete/$', views.PostDeleteView.as_view(), name='delete_post'),#delete
 
 
+    #VOTE POST
+    url(r'^r/(?P<subreddit_name>\w+)/posts/(?P<post_pk>\d+)/upvote/$', views.upvote_post, name='upvote_post'),
+    url(r'^r/(?P<subreddit_name>\w+)/posts/(?P<post_pk>\d+)/downvote/$', views.downvote_post, name='downvote_post'),
+
     #COMMENTS
     url(r'^r/(?P<subreddit_name>\w+)/posts/(?P<post_pk>\d+)/$', views.post_comments, name='post_comments'),  #list
     url(r'^r/(?P<subreddit_name>\w+)/posts/(?P<post_pk>\d+)/new/$', views.comment_new, name='comment_new'), #create
