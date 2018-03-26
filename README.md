@@ -1,6 +1,8 @@
 # Reddit clone
 Self-explanatory title
 
+![Homepage](static/img/screenshot.png)
+
 # Set up
 1. create virtual env within repo: `virtualenv venv -p python3`
 2. activate virtual env: `source venv/bin/activate`
