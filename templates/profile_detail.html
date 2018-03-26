@@ -2,22 +2,21 @@
 {% load static %}
 
 {% block breadcrumb %}
-  <li class="breadcrumb-item"><a href="{% url 'home' %}">Reddit</a></li>
-  <li class="breadcrumb-item active">{{profile.user.username}}'s Profile</li>
+<li class="breadcrumb-item"><a href="{% url 'home' %}">Reddit</a></li>
+<li class="breadcrumb-item active">{{profile.user.username}}'s Profile</li>
 {% endblock %}
 
 {% block content %}
 
-  <h3 style="margin-bottom:60px;">Bio: {{profile.bio}}</h3>
+<h3 style="margin-bottom:60px;">Bio: {{profile.bio}}</h3>
 
-  {% if user == request.user and request.user.is_authenticated %}
-  <div class="mb-4">
+{% if user == request.user and request.user.is_authenticated %}
+<div class="mb-4">
     <a href="{% url 'profile_update' profile.pk %}" class="btn btn-primary">Update Profile</a>
-  </div>
+</div>
 
 
-
-  {% else %}
-  {% endif %}
+{% else %}
+{% endif %}
 
 {% endblock content %}

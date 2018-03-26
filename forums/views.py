@@ -8,15 +8,18 @@ from .forms import NewPostForm, NewCommentForm
 def home(request):
     return render(request, 'home.html')
 
-#SUBREDDITS
+
+# SUBREDDITS
 def subreddits(request):
     subreddits = Subreddit.objects.all().order_by('name')
     return render(request, 'subreddits.html', {'subreddits': subreddits})
 
-#POSTS
+
+# POSTS
 def subreddit_posts(request, subreddit_name):
     subreddit = Subreddit.objects.get(name=subreddit_name)
     return render(request, 'subreddit_posts.html', {'subreddit': subreddit})
+
 
 @login_required
 def post_new(request, subreddit_name):
@@ -34,10 +37,11 @@ def post_new(request, subreddit_name):
     return render(request, 'post_new.html', {'subreddit': subreddit, 'form': form})
 
 
-#COMMENTS
+# COMMENTS
 def post_comments(request, subreddit_name, post_pk):
     post = Post.objects.get(pk=post_pk, subreddit__name=subreddit_name)
-    return render(request, 'post_comments.html', { 'post': post})
+    return render(request, 'post_comments.html', {'post': post})
+
 
 @login_required
 def comment_new(request, subreddit_name, post_pk):
@@ -52,10 +56,11 @@ def comment_new(request, subreddit_name, post_pk):
             comment.updated_at = timezone.now()
             comment.created_at = timezone.now()
             comment.save()
-            return redirect('post_comments', subreddit_name=subreddit_name , post_pk=post_pk)
+            return redirect('post_comments', subreddit_name=subreddit_name, post_pk=post_pk)
     else:
         form = NewCommentForm()
-    return render(request, 'comment_new.html', { 'post': post, 'form': form})
+    return render(request, 'comment_new.html', {'post': post, 'form': form})
+
 
 @login_required
 def comment_update(request, subreddit_name, post_pk, comment_pk):
@@ -67,15 +72,16 @@ def comment_update(request, subreddit_name, post_pk, comment_pk):
             comment = form.save(commit=False)
             comment.updated_at = timezone.now()
             comment.save()
-            return redirect('post_comments', subreddit_name=subreddit_name , post_pk=post_pk)
-    #DELETE COMMENT
+            return redirect('post_comments', subreddit_name=subreddit_name, post_pk=post_pk)
+    # DELETE COMMENT
     elif request.method == 'POST' and 'Delete_comment' in request.POST:
         comment.delete()
         return redirect('post_comments', subreddit_name=subreddit_name, post_pk=post_pk)
     else:
         form = NewCommentForm()
 
-    return render(request, 'comment_update.html', { 'comment': comment, 'form': form})
+    return render(request, 'comment_update.html', {'comment': comment, 'form': form})
+
 
 @login_required
 def comment_reply(request, subreddit_name, post_pk, comment_pk):
@@ -91,10 +97,10 @@ def comment_reply(request, subreddit_name, post_pk, comment_pk):
             new_comment.created_at = timezone.now()
             new_comment.updated_at = timezone.now()
             new_comment.save()
-            return redirect('post_comments', subreddit_name=subreddit_name , post_pk=post_pk)
+            return redirect('post_comments', subreddit_name=subreddit_name, post_pk=post_pk)
     else:
         form = NewCommentForm()
-    return render(request, 'comment_reply.html', { 'comment': comment, 'form': form})
+    return render(request, 'comment_reply.html', {'comment': comment, 'form': form})
 
 
 @login_required
@@ -106,7 +112,8 @@ def upvote_post(request, subreddit_name, post_pk):
     post_score.upvoted_by = request.user
     post_score.save()
 
-    return render(request, 'post_comments.html', { 'post': post})
+    return render(request, 'post_comments.html', {'post': post})
+
 
 @login_required
 def downvote_post(request, subreddit_name, post_pk):
@@ -116,7 +123,4 @@ def downvote_post(request, subreddit_name, post_pk):
     post_score.downvoted_by = request.user
     post_score.save()
 
-    return render(request, 'post_comments.html', { 'post': post})
-
-
-
+    return render(request, 'post_comments.html', {'post': post})

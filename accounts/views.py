@@ -11,6 +11,7 @@ from django.views.generic import UpdateView
 from django.db import transaction
 from django.contrib import messages
 
+
 def signup(request):
     if request.method == 'POST':
         form = SignUpForm(request.POST)
@@ -20,13 +21,15 @@ def signup(request):
             return redirect('home')
     else:
         form = SignUpForm()
-    return render(request, 'signup.html', {'form':form})
+    return render(request, 'signup.html', {'form': form})
 
-#ACCOUNT
+
+# ACCOUNT
 @login_required
 def account_detail(request, account_username):
     user = User.objects.get(username=account_username)
     return render(request, 'account_detail.html', {'user': user})
+
 
 @login_required
 def account_update(request, account_username):
@@ -40,14 +43,13 @@ def account_update(request, account_username):
             messages.error(request, ('Please correct the error below.'))
     else:
         form = UpdateUserForm(instance=request.user)
-    return render(request, 'account_update.html', { 'form': form })
+    return render(request, 'account_update.html', {'form': form})
 
 
-
-#PROFILES
+# PROFILES
 def profile_detail(request, profile_pk):
     profile = get_object_or_404(Profile, pk=profile_pk)
-    return render(request, 'profile_detail.html', {'profile':profile})
+    return render(request, 'profile_detail.html', {'profile': profile})
 
 
 @login_required
@@ -60,23 +62,9 @@ def profile_update(request, profile_pk):
             return redirect('profile_detail', profile_pk=profile_pk)
     else:
         form = UpdateProfileForm()
-    return render(request, 'profile_update.html', {'profile':profile, 'form':form})
+    return render(request, 'profile_update.html', {'profile': profile, 'form': form})
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#joining 2 forms in a view example:
+# joining 2 forms in a view example:
 # @login_required
 # def update_profile(request):
 #     if request.method == 'POST':

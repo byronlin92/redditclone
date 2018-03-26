@@ -2,9 +2,9 @@
 
 
 {% block breadcrumb %}
-  <li class="breadcrumb-item"><a href="{% url 'home' %}">Reddit</a></li>
-  <li class="breadcrumb-item"><a href="{% url 'profile_detail' profile.pk %}">{{profile.user.username}}'s Profile</a></li>
-  <li class="breadcrumb-item active">Update Profile</li>
+<li class="breadcrumb-item"><a href="{% url 'home' %}">Reddit</a></li>
+<li class="breadcrumb-item"><a href="{% url 'profile_detail' profile.pk %}">{{profile.user.username}}'s Profile</a></li>
+<li class="breadcrumb-item active">Update Profile</li>
 {% endblock %}
 
 

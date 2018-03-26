@@ -6,22 +6,24 @@
 
 
 {% block breadcrumb %}
-  <li class="breadcrumb-item"><a href="{% url 'home' %}">Reddit</a></li>
-  <li class="breadcrumb-item"><a href="{% url 'subreddits' %}">Subreddits</a></li>
-  <li class="breadcrumb-item"><a href="{% url 'subreddit_posts' comment.post.subreddit.name %}">{{ comment.post.subreddit.name }}</a></li>
-  <li class="breadcrumb-item"><a href="{% url 'post_comments' comment.post.subreddit.name  comment.post.pk %}">{{ comment.post.subject }}</a></li>
-  <li class="breadcrumb-item active">Edit comment</li>
+<li class="breadcrumb-item"><a href="{% url 'home' %}">Reddit</a></li>
+<li class="breadcrumb-item"><a href="{% url 'subreddits' %}">Subreddits</a></li>
+<li class="breadcrumb-item"><a href="{% url 'subreddit_posts' comment.post.subreddit.name %}">{{
+    comment.post.subreddit.name }}</a></li>
+<li class="breadcrumb-item"><a href="{% url 'post_comments' comment.post.subreddit.name  comment.post.pk %}">{{
+    comment.post.subject }}</a></li>
+<li class="breadcrumb-item active">Edit comment</li>
 {% endblock %}
 
 {% block content %}
 
-  <form method="post" class="mb-4" novalidate>
+<form method="post" class="mb-4" novalidate>
     {% csrf_token %}
     {% include 'includes/form.html' %}
     <button type="submit" class="btn btn-success" name="Edit_comment">Edit comment</button>
     <button type="submit" class="btn btn-success" name="Delete_comment">Delete comment</button>
 
-  </form>
+</form>
 
 
 {% endblock %}
