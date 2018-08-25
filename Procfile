@@ -1,1 +1,1 @@
-web: gunicorn myproject.wsgi
+web: gunicorn redditclone.wsg --log-file--
