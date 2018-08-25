@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="b0eb2feb-9628-4ef7-b8fb-364f46930e72" name="Default" comment="" />
+    <list default="true" id="b0eb2feb-9628-4ef7-b8fb-364f46930e72" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/redditclone/settings.py" afterPath="$PROJECT_DIR$/redditclone/settings.py" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -38,8 +40,8 @@
       <file leaf-file-name="settings.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/redditclone/settings.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="887">
-              <caret line="154" column="44" lean-forward="true" selection-start-line="154" selection-start-column="44" selection-end-line="154" selection-end-column="44" />
+            <state relative-caret-position="288">
+              <caret line="32" column="46" lean-forward="false" selection-start-line="32" selection-start-column="46" selection-end-line="32" selection-end-column="46" />
               <folding>
                 <element signature="e#315#324#0" expanded="true" />
               </folding>
@@ -51,8 +53,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>NewPostForm</find>
-      <find>Fore</find>
       <find>integer</find>
       <find>subreddit_posts</find>
       <find>subreddit</find>
@@ -81,6 +81,8 @@
       <find>dj_database_url</find>
       <find>django_heroku</find>
       <find>def settings(config, *, db_</find>
+      <find>Debug</find>
+      <find>all</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -154,17 +156,6 @@
               <item name="redditclone" type="b2602c69:ProjectViewProjectNode" />
               <item name="redditclone" type="462c0819:PsiDirectoryNode" />
               <item name="forums" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="redditclone" type="b2602c69:ProjectViewProjectNode" />
-              <item name="redditclone" type="462c0819:PsiDirectoryNode" />
-              <item name="media" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="redditclone" type="b2602c69:ProjectViewProjectNode" />
-              <item name="redditclone" type="462c0819:PsiDirectoryNode" />
-              <item name="media" type="462c0819:PsiDirectoryNode" />
-              <item name="documents" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="redditclone" type="b2602c69:ProjectViewProjectNode" />
@@ -611,8 +602,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/redditclone/settings.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="887">
-          <caret line="154" column="44" lean-forward="true" selection-start-line="154" selection-start-column="44" selection-end-line="154" selection-end-column="44" />
+        <state relative-caret-position="288">
+          <caret line="32" column="46" lean-forward="false" selection-start-line="32" selection-start-column="46" selection-end-line="32" selection-end-column="46" />
           <folding>
             <element signature="e#315#324#0" expanded="true" />
           </folding>
