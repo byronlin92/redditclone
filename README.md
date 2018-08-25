@@ -1,5 +1,4 @@
 # Reddit clone
-Self-explanatory title
 
 ![Homepage](static/img/screenshot.png)
 
