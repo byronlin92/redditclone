@@ -1,12 +1,13 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.utils import timezone
-from .models import Subreddit, Post, Comment, User, Post_score
+from .models import Subreddit, Post, Comment, Post_score
 from .forms import NewPostForm, NewCommentForm
 
 
 def home(request):
-    return render(request, 'home.html')
+    posts = Post.objects.all().order_by('created_at')
+    return render(request, 'home.html', {'posts':posts})
 
 
 # SUBREDDITS

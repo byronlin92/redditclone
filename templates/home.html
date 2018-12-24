@@ -1,4 +1,10 @@
 {% extends 'base.html' %}
+{% load static %}
+{% load humanize %}
+
+{% block stylesheet %}
+<link rel="stylesheet" href="{% static 'css/sort.css' %}">
+{% endblock %}
 
 {% block breadcrumb %}
 <li class="breadcrumb-item active">Reddit</li>
@@ -6,5 +12,45 @@
 
 {% block content %}
 <p>WELCOME TO REDDIT</p>
+
 <a href="{% url 'subreddits' %}">Subreddits</a>
+
+<p>MOST RECENT POSTS:</p>
+<div id="post_table">
+    <table class="table">
+        <thead class="thead-inverse">
+        <tr>
+            <th>
+                <button class="sort" data-sort="post">Post</button>
+                <input class="search" placeholder="Search"/></th>
+            <th>
+                <button class="sort" data-sort="starter">Started by</button>
+            </th>
+            <th>
+                <button class="sort" data-sort="replies">Replies</button>
+            </th>
+            <th>
+                <button class="sort" data-sort="scores">Score</button>
+            </th>
+            <th>
+                <button class="sort" data-sort="created_at">Created at</button>
+            </th>
+        </tr>
+        </thead>
+        <tbody class="list">
+        {% for post in posts %}
+        <tr>
+            <td><a class="post" href="{% url 'post_comments' post.subreddit.name post.pk %}">{{ post.name }}</a></td>
+            <td class="starter">{{ post.created_by.username }}</td>
+            <td class="replies">{{ post.comments.count}}</td>
+            <td class="scores">{{ post.get_total_post_score }}</td>
+            <td class="created_at" data_created_at="{{post.created_at}}">{{ post.created_at|naturaltime }}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+
+
 {% endblock %}
