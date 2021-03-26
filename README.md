@@ -17,4 +17,19 @@ Functionalities implemented:
 3. Create post (ability to add title, description, URL, image upload)
 4. Create/update/delete comments
 5. Nested comments
-6. score (upvote/downvote)
+6. Score (upvote/downvote) -partially working
+
+
+
+
+Learnings
+- MVC(Model view controller) architecture
+  - Model: Model represents the shape of the data. A class in C# is used to describe a model. Model objects store data retrieved from the database.
+  - View: Controls the user request, and handles logic to direct to the correct template.
+  - Template: contains the UI (html pages).
+- User goes to URL -> redirected to view (logic) -> gets the correct HTML page and displays to user
+Challenges:
+- Setting up the UI so it can link to other pages
+  -Modelling the data so every page can be accessible 
+- Nested comments
+  -Used recursion, made a separate template for comments, so it can be recursively called so it looks nested
